@@ -63,6 +63,7 @@ int main(int argc, char* argv[])
     // Empieza la magia
     if(hr) // Quiere que salgan las medidas (B -> Bytes, KB -> KiloBytes, MG -> MegaBytes, GB -> GigaBytes)
     {
+      // Aquí falta redondear los números
       if(sz < 1024)
 	fst = "B";
       if(sz >= (1024))
