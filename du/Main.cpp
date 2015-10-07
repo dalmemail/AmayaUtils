@@ -20,6 +20,7 @@
 #include <sys/stat.h>
 
 void show_help();
+void show_version();
 
 size_t get_file_size(char* path);
 
@@ -38,6 +39,11 @@ int main(int argc, char* argv[])
     if(args == 1 && strcmp(argv[i], "--help") == 0)
     {
       show_help();
+      return 0;
+    }
+    if(args == 1 && strcmp(argv[i], "--version") == 0)
+    {
+      show_version();
       return 0;
     }
     if(args == 1 && ((strcmp(argv[i], "-0") == 0) || (strcmp(argv[i], "--null") == 0)))
@@ -88,6 +94,18 @@ void show_help()
   printf("  -h, --human-readable  muestra los tamaños de forma legible\n"
          "                        (p. ej., 1K 234M 2G)\n");
   printf("\n\n[Trabajando en el resto...]\n\n");
+}
+
+// Muestra la versión y algunos detalles de la licencia
+void show_version()
+{
+  printf("du (AmayaOS coreutils) 0.5.4\n");
+  printf("Copyright © 2015 AmayaOS Team, Inc.\n"
+         "Licencia GPLv3+: GPL de GNU versión 3 o posterior\n"
+         "<http://gnu.org/licenses/gpl.html>.\n");
+  printf("Esto es software libre: usted es libre de cambiarlo y redistribuirlo.\n");
+  printf("No hay NINGUNA GARANTÍA, hasta donde lo permite la ley.\n\n");
+  printf("Escrito por Alvaro Stagg.\n");
 }
 
 // Función para obtener el tamaño del archivo
