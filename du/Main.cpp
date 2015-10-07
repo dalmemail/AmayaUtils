@@ -59,11 +59,11 @@ int main(int argc, char* argv[])
     {
       if(sz < 1024)
 	fst = "B";
-      else if(sz >= (1024))
+      if(sz >= (1024))
         fst = "KB";
-      else if(sz >= (1024 * 1024))
+      if(sz >= (1024 * 1024))
 	fst = "MB";
-      else if(sz >= (1024 * 1024 * 1024))
+      if(sz >= (1024 * 1024 * 1024))
 	fst = "GB";
 
       printf("%d%s	%s", sz, fst, argv[i]);
