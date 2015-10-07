@@ -69,9 +69,7 @@ int main(int argc, char* argv[])
       printf("%d%s	%s", sz, fst, argv[i]);
     }
     else // No quiere que salgan las medidas...
-    {
       printf("%d	%s", sz, argv[i]);
-    }
   }
 
   if(!newline)
