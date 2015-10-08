@@ -26,8 +26,10 @@ size_t get_file_size(char* path);
 
 int main(int argc, char* argv[])
 {
-  int i, args = 1, newline = 0, hr = 0;
-  // hr = human readable
+  int i, args = 1, newline = 0, hr = 0, _si = 0;
+  /* hr  = human readable
+   * _si = lo mismo que hr pero en potencias de 1000
+   */
   size_t sz;
   // sz = size
   char* fst;
@@ -56,22 +58,63 @@ int main(int argc, char* argv[])
       hr = 1;
       continue;
     }
+    if(args == 1 && (strcmp(argv[i], "--si") == 0))
+    {
+      _si = 1;
+      continue;
+    }
 
     // Obtenemos el tamaño del archivo en Bytes
     sz = get_file_size(argv[i]);
 
     // Empieza la magia
-    if(hr) // Quiere que salgan las medidas (B -> Bytes, KB -> KiloBytes, MG -> MegaBytes, GB -> GigaBytes)
+    if(hr) // Quiere que salgan las medidas (B -> Bytes, K -> KiloBytes, M -> MegaBytes, G -> GigaBytes) [Potencias de 1024]
     {
-      // Aquí falta redondear los números
+      // Potencias de 1024
       if(sz < 1024)
-	fst = "B";
-      if(sz >= (1024))
-        fst = "KB";
-      if(sz >= (1024 * 1024))
-	fst = "MB";
-      if(sz >= (1024 * 1024 * 1024))
-	fst = "GB";
+      {
+        fst = "B";
+      }
+      else if(sz >= (1024))
+      {
+        fst = "K";
+        sz = sz / (1024);
+      }
+      else if(sz >= (1024 * 1024))
+      {
+        fst = "M";
+        sz = sz / (1024 * 1024);
+      }
+      else if(sz >= (1024 * 1024 * 1024))
+      {
+        fst = "G";
+        sz = sz / (1024 * 1024 * 1024);
+      }
+
+      printf("%d%s	%s", sz, fst, argv[i]);
+    }
+    else if(_si) // Quiere que salgan las medidas (B -> Bytes, KB -> KiloBytes, MB -> MegaBytes, GB -> GigaBytes) [Potencias de 1000]
+    {
+      // Potencias de 1000
+      if(sz < 1000)
+      {
+        fst = "B";
+      }
+      else if(sz >= (1000))
+      {
+        fst = "k";
+        sz = sz / (1000);
+      }
+      else if(sz >= (1000 * 1000))
+      {
+        fst = "M";
+        sz = sz / (1000 * 1000);
+      }
+      else if(sz >= (1000 * 1000 * 1000))
+      {
+        fst = "G";
+        sz = sz / (1000 * 1000 * 1000);
+      }
 
       printf("%d%s	%s", sz, fst, argv[i]);
     }
@@ -79,9 +122,12 @@ int main(int argc, char* argv[])
       printf("%d	%s", sz, argv[i]);
   }
 
+  // En caso de que quiera terminar con una línea NUL
   if(!newline)
     printf("\n");
 
+  // Limpiamos
+  fst = NULL;
   return 0;
 }
 
@@ -94,6 +140,9 @@ void show_help()
   printf("  -0, --null            termina cada línea con NUL, no con nueva línea\n");
   printf("  -h, --human-readable  muestra los tamaños de forma legible\n"
          "                        (p. ej., 1K 234M 2G)\n");
+  printf("      --si              como -h, pero utiliza potencias de 1000, no de 1024\n");
+  printf("      --help     muestra esta ayuda y finaliza\n");
+  printf("      --version  informa de la versión y finaliza\n");
   printf("\n\n[Trabajando en el resto...]\n\n");
 }
 
@@ -117,5 +166,5 @@ size_t get_file_size(char* path)
   if(stat(path, &st) < 0)
     return -1;
 
-  return st.st_size;
+  return (double)st.st_size;
 }
