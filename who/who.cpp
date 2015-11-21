@@ -16,13 +16,10 @@
  */
 
 #include "who.h"
-#include <stdlib.h>
 #include <string.h>
-#include <dirent.h>
-#include <fcntl.h>
 #include <sys/stat.h>
 
-WhoCommand(char *host)
+WhoCommand::WhoCommand(char *host)
 {
 	char *path[5] = {"tty0", "tty1", "tty2", "tty3", "tty4"};
 	char path_actual[64];
@@ -36,7 +33,7 @@ WhoCommand(char *host)
 	}
 }
 
-~WhoCommand()
+WhoCommand::~WhoCommand()
 {
 	
 }
