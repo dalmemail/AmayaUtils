@@ -22,6 +22,7 @@
 
 class WhoCommand
 {
+public:
 	WhoCommand(char *host);
 	~WhoCommand();
 };
