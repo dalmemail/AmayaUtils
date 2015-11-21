@@ -17,6 +17,7 @@
 
 #include "who.h"
 #include <string.h>
+#include <stdio.h>
 #include <sys/stat.h>
 
 WhoCommand::WhoCommand(char *host)
