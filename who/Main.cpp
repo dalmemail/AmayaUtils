@@ -21,7 +21,6 @@
 
 int main(int argc, char **argv)
 {
-	
 	char host[128];
 	/* Obtenemos el usuario actual */
 	gethostname(host, sizeof(host));
