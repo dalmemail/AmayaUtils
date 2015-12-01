@@ -132,7 +132,10 @@ void show_help()
 	printf("Uso: find [path...] [expressions]\n\n"
 		   "El path por default es el directorio actual.\n\n"
 		   "Nota: este programa sigue en desarrollo.\n\n");
-	// printf("");
+	printf("opciones normales (simpre verdaderas, especificar antes de otras expresiones):\n"
+		   "      --help --version [aún en desarrollo...]\n\n");
+	printf("pruebas:\n"
+		   "      -empty -name PATTERN [aún en desarrollo...]\n\n");
 	printf("Informe sobre bugs (y siga el progreso de su corrección) a través de la\n"
            "página de comunicación de bugs en http://bugs.amayaos.com/ o bien, si no\n"
            "tiene acceso a web, enviando un mensaje a <amaya@amayaos.com>.\n");
