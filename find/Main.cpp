@@ -25,9 +25,11 @@ int main(int argc, char **argv)
 	char cwd[128];
 	getcwd(cwd, sizeof(cwd));
 
+	Find find;
+
 	if (argc < 2)
 	{
-		ret = find(cwd);
+		ret = find.find(cwd);
 	}
 	else
 	{
@@ -47,9 +49,9 @@ int main(int argc, char **argv)
 	}
 
 	if(cnt == 1)
-		show_help();
+		find.show_help();
 	else if(cnt == 2)
-		show_version();
+		find.show_version();
 	else
 	{
 		for (int i = 0; i < argc; i++)
@@ -57,16 +59,16 @@ int main(int argc, char **argv)
 			if((strcmp(argv[i], "-name")) == 0)
 			{
 				if(argv[i - 1] == argv[0])
-					ret = find(cwd, argv[i + 1]);
+					ret = find.find(cwd, argv[i + 1]);
 				else
-					ret = find(argv[i - 1], argv[i + 1]);
+					ret = find.find(argv[i - 1], argv[i + 1]);
 			}
 			if((strcmp(argv[i], "-empty")) == 0)
 			{
 				if(argv[i - 1] == argv[0])
-					ret = find_empty(cwd);
+					ret = find.find_empty(cwd);
 				else
-					ret = find_empty(argv[1]);
+					ret = find.find_empty(argv[1]);
 			}
 		}
 	}
