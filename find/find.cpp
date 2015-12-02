@@ -15,25 +15,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <dirent.h>
 #include <errno.h>
 #include <sys/stat.h>
 #include "find.h"
 
-int find(char *path, char *file)
+Find::Find()
 {
-	DIR *d;
+
+}
+
+int Find::find(char *path, char *file)
+{
 	struct dirent *dent;
 	char path_[128];
 	/* copy path to path_ */
 	strcpy(path_, path);
 	/* open path */
-	if (!(d = opendir(path))) {
+	if (!(dir = opendir(path))) {
 		printf("find: error al abrir '%s': %s\r\n",
 		path, strerror(errno));
 		return EXIT_FAILURE;
 	}
-	while ((dent = readdir(d))) {
+	while ((dent = readdir(dir))) {
 		switch (dent->d_type) {
 			case DT_DIR:
 				if (dent->d_name[0] != '.') {
@@ -60,7 +63,7 @@ int find(char *path, char *file)
 		strcpy(path_, path);
 	}
 	/* close path */
-	closedir(d);
+	closedir(dir);
 	return EXIT_SUCCESS;
 }
 
@@ -74,9 +77,8 @@ size_t file_size(char *path)
 		return st.st_size;
 }
 
-int find_empty(char *path)
+int Find::find_empty(char *path)
 {
-	DIR *dir;
 	struct dirent *dnt;
 
 	if ((dir = opendir(path)) != NULL)
@@ -98,9 +100,8 @@ int find_empty(char *path)
 	return EXIT_SUCCESS;
 }
 
-int find(char* path)
+int Find::find(char* path)
 {
-	DIR *dir;
 	struct dirent *dnt;
 
 	if ((dir = opendir(path)) != NULL)
@@ -127,7 +128,7 @@ int find(char* path)
 	return EXIT_SUCCESS;
 }
 
-void show_help()
+void Find::show_help()
 {
 	printf("Uso: find [path...] [expressions]\n\n"
 		   "El path por default es el directorio actual.\n\n"
@@ -141,7 +142,7 @@ void show_help()
            "tiene acceso a web, enviando un mensaje a <amaya@amayaos.com>.\n");
 }
 
-void show_version()
+void Find::show_version()
 {
 	printf("find (AmayaOS findutils) 1.0\n");
 	printf("Copyright (C) 2015 Free Software Foundation, Inc.\n"
@@ -149,4 +150,9 @@ void show_version()
 		   "This is free software: you are free to change and redistribute it.\n"
 		   "There is NO WARRANTY, to the extent permitted by law.\n\n");
 	printf("Written by Dan Rulos and Alvaro Stagg.\n");
+}
+
+Find::~Find()
+{
+
 }
