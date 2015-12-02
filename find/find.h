@@ -21,17 +21,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <dirent.h>
 #include <unistd.h>
 
-/* find() seeks files on path */
-int find(char* path);
-/* find() seeks file on path */
-int find(char *path, char *file);
-/* find_empty() seeks empty files on path */
-int find_empty(char *path);
-/* show_help() show a little help */
-void show_help();
-/* show_version() show version */
-void show_version();
+class Find
+{
+public:
+	Find();
+
+	/* find() seeks files on path */
+	int find(char* path);
+	/* find() seeks file on path */
+	int find(char *path, char *file);
+	/* find_empty() seeks empty files on path */
+	int find_empty(char *path);
+	/* show_help() show a little help */
+	void show_help();
+	/* show_version() show version */
+	void show_version();
+
+	~Find();
+private:
+	DIR *dir;
+};
 
 #endif
